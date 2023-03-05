@@ -1,12 +1,9 @@
-'use strict';
+const crypto = require('crypto');
 
-const Encrypt = require('@dan/iut-encrypt');
+exports.encrypt = function (data) {
+    return crypto.createHash("sha1").update(data, "binary").digest("hex")
+}
 
-const plainTextPassword = 'motdepasse';
-
-const passwordSha1 = Encrypt.sha1(plainTextPassword);
-
-if(Encrypt.compareSha1('motdepassesaisit', passwordSha1)){
-
-    console.log('Connexion validé');
+exports.compareEncryption = function (data, dataCrypt) {
+    return this.sha1(data) === dataCrypt
 }
